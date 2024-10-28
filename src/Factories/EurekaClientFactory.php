@@ -6,6 +6,7 @@ namespace Appino\LaravelEureka\Factories;
 use Eureka\EurekaClient;
 use Eureka\Exceptions\InstanceFailureException;
 use Appino\LaravelEureka\Exceptions\ServiceUnavailableException;
+use Illuminate\Support\Facades\Request;
 
 abstract class EurekaClientFactory
 {
@@ -15,14 +16,14 @@ abstract class EurekaClientFactory
     public static function getEurekaClient(): EurekaClient
     {
         if (!isset(self::$eurekaClient)) {
-            $homePageUrl = config('eureka-laravel.service_ip') . ':' . config('eureka-laravel.service_port');
+            $homePageUrl = config('laravel-eureka.service_ip') . ':' . config('laravel-eureka.service_port');
 
             self::$eurekaClient = new EurekaClient([
-                'eurekaDefaultUrl' => config('eureka-laravel.eureka_url'),
-                'hostName' => config('eureka-laravel.service_ip'),
-                'appName' => config('eureka-laravel.service_name'),
-                'ip' => config('eureka-laravel.service_ip'),
-                'port' => [config('eureka-laravel.service_port'), true],
+                'eurekaDefaultUrl' => config('laravel-eureka.eureka_url'),
+                'hostName' => config('laravel-eureka.service_ip'),
+                'appName' => config('app.name'),
+                'ip' => config('laravel-eureka.service_ip'),
+                'port' => [ config('laravel-eureka.service_port'), true],
                 'homePageUrl' => $homePageUrl,
                 'healthCheckUrl' => "$homePageUrl/api/health-check"
             ]);

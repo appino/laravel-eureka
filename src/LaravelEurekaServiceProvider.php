@@ -2,7 +2,10 @@
 
 namespace Appino\LaravelEureka;
 
+use Appino\LaravelEureka\Console\Commands\DeregisterCommand;
 use Appino\LaravelEureka\Console\Commands\EurekaHealthCheckCommand;
+use Appino\LaravelEureka\Console\Commands\HeartBeatCommand;
+use Appino\LaravelEureka\Console\Commands\RegisterCommand;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelEurekaServiceProvider extends ServiceProvider
@@ -21,7 +24,10 @@ class LaravelEurekaServiceProvider extends ServiceProvider
             ], 'config');
             // Registering package commands.
             $this->commands([
-                EurekaHealthCheckCommand::class
+                EurekaHealthCheckCommand::class,
+                RegisterCommand::class,
+                DeregisterCommand::class,
+                HeartBeatCommand::class,
             ]);
         }
     }
