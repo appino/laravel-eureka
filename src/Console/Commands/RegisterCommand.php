@@ -10,7 +10,7 @@ class RegisterCommand extends Command
 {
 
 
-    protected const WAITING_TIME = 1;
+    protected const WAITING_TIME = 30;
 
     protected $signature = 'eureka:register';
 
@@ -25,17 +25,14 @@ class RegisterCommand extends Command
 
     public function handle(): void
     {
-        while (true) {
-            try {
-                if (!$this->client->isRegistered()) {
-                    $this->client->register();
-                }
-            } catch (\Exception) {
-                echo 'Eureka is not available. Waiting ' . self::WAITING_TIME . ' second.' . PHP_EOL;
-
-                sleep(self::WAITING_TIME);
+        try {
+            if (!$this->client->isRegistered()) {
+                $this->client->register();
             }
+        } catch (\Exception) {
+            echo 'Eureka is not available. Waiting ' . self::WAITING_TIME . ' second.' . PHP_EOL;
         }
+        sleep(self::WAITING_TIME);
     }
 
 }

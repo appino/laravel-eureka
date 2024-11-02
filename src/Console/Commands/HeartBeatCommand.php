@@ -32,9 +32,8 @@ class HeartBeatCommand extends Command
                 }
             } catch (\Exception) {
                 echo 'Eureka is not available. Waiting ' . self::WAITING_TIME . ' second.' . PHP_EOL;
-
-                sleep(self::WAITING_TIME);
             }
+            sleep(self::WAITING_TIME);
         }
     }
 

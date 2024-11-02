@@ -11,11 +11,12 @@ abstract class AbstractCommand extends Command
     public function __construct()
     {
         parent::__construct();
+        if (extension_loaded('pcntl')) {
+            pcntl_async_signals(true);
 
-        pcntl_async_signals(true);
-
-        pcntl_signal(SIGINT, [$this, 'shutdown']);
-        pcntl_signal(SIGTERM, [$this, 'shutdown']);
+            pcntl_signal(SIGINT, [$this, 'shutdown']);
+            pcntl_signal(SIGTERM, [$this, 'shutdown']);
+        }
     }
 
     abstract protected function shutdown(): void;

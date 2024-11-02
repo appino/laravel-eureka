@@ -25,16 +25,14 @@ class DeregisterCommand extends Command
 
     public function handle(): void
     {
-        while (true) {
-            try {
-                if ($this->client->isRegistered()) {
-                    $this->client->deRegister();
-                }
-            } catch (\Exception) {
-                echo 'Eureka is not available. Waiting ' . self::WAITING_TIME . ' second.' . PHP_EOL;
-
-                sleep(self::WAITING_TIME);
+        try {
+            if ($this->client->isRegistered()) {
+                $this->client->deRegister();
             }
+        } catch (\Exception) {
+            echo 'Eureka is not available. Waiting ' . self::WAITING_TIME . ' second.' . PHP_EOL;
+
+            sleep(self::WAITING_TIME);
         }
     }
 
