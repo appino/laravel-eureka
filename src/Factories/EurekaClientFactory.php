@@ -16,20 +16,19 @@ abstract class EurekaClientFactory
     public static function getEurekaClient(): EurekaClient
     {
         if (!isset(self::$eurekaClient)) {
-            $homePageUrl = config('laravel-eureka.service_port') . ':' . config('laravel-eureka.service_port');
+            $homePageUrl = config('laravel-eureka.service_ip') . ':' . config('laravel-eureka.service_port');
 
             self::$eurekaClient = new EurekaClient([
                 'eurekaDefaultUrl' => config('laravel-eureka.eureka_url'),
-                'hostName' => config('laravel-eureka.service_port'),
+                'hostName' => config('laravel-eureka.service_ip'),
                 'appName' => config('app.name'),
-                'ip' => config('laravel-eureka.service_port'),
+                'ip' => config('laravel-eureka.service_ip'),
                 'port' => [ config('laravel-eureka.service_port'), true],
                 'homePageUrl' => "http://".$homePageUrl,
                 'statusPageUrl' => "http://"."$homePageUrl/up",
                 'healthCheckUrl' => "http://"."$homePageUrl/api/health-check",
-                'vipAddress' => config('laravel-eureka.service_port'),
-                'secureVipAddress' => config('laravel-eureka.service_port'),
-                'metadata' => ['management.port' , 90]
+                'vipAddress' => config('laravel-eureka.service_ip'),
+                'secureVipAddress' => config('laravel-eureka.service_ip'),
             ]);
         }
 
